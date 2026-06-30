@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="LAXTHA — 생체신호 계측 전문. ECG·EEG·EMG 센서와 전극, 측정 소프트웨어." />
+    <title>LAXTHA — 생체신호 계측의 기준</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" />
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script src="assets/js/products.js" defer></script>
+    <script src="assets/js/data.js" defer></script>
+    <script src="assets/js/cart.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+  </head>
+  <body id="top">
+    <header class="hdr">
+      <div class="container hdr__in">
+        <a class="brand" href="#top" aria-label="LAXTHA 홈">
+          <img class="brand__img" src="assets/brand/laxtha-logo.png" alt="LAXTHA eShop" />
+        </a>
+        <nav class="hdr__nav" aria-label="섹션 이동">
+          <a href="#categories">측정 분야</a>
+          <a href="#catalog">제품</a>
+          <a href="#contact">문의</a>
+        </nav>
+        <div class="hdr__act">
+          <button class="iconbtn" type="button" data-search-open aria-label="제품 검색">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          </button>
+          <button class="iconbtn" type="button" data-cart-open aria-label="장바구니 열기">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l2.4 12.3a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.78L21 8H6"/><circle cx="9.5" cy="20" r="1.4"/><circle cx="17.5" cy="20" r="1.4"/></svg>
+            <span class="badge" data-cart-count>0</span>
+          </button>
+          <button class="iconbtn hdr__burger" type="button" data-menu-open aria-label="메뉴">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO (dark) -->
+      <section class="hero" data-hero>
+        <div class="container hero__in">
+          <div class="hero__text">
+            <p class="hero__eyebrow"><span class="dot"></span>Biosignal instruments — Est. 2004</p>
+            <h1 class="hero__title">
+              <span class="line"><span>Precision starts</span></span>
+              <span class="line"><span>with the <em>right</em></span></span>
+              <span class="line"><span>sensor.</span></span>
+            </h1>
+            <p class="hero__kr">정밀한 측정은 좋은 센서에서 시작됩니다. ECG · EEG · EMG 센서와 전극, 측정 소프트웨어까지 — 연구·교육 현장을 위한 LAXTHA 생체신호 계측 라인업.</p>
+            <div class="hero__cta">
+              <a class="btn btn--accent" data-magnetic href="#catalog">제품 보기</a>
+              <a class="textlink textlink--on-dark" href="#contact">견적 문의 <i>→</i></a>
+            </div>
+          </div>
+          <div class="hero__visual">
+            <div class="hero__halo" aria-hidden="true"></div>
+            <div class="hero__frame"><img src="assets/products/neuronicle-e2.jpg" alt="neuroNicle E2 무선 뇌파측정기" /></div>
+          </div>
+        </div>
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee__track">
+            <span>EEG</span><span>·</span><span>ECG</span><span>·</span><span>EMG</span><span>·</span><span>Dry electrode</span><span>·</span><span>Wireless</span><span>·</span><span>HRV</span><span>·</span><span>Clinical-grade</span><span>·</span><span>KFDA</span><span>·</span><span>Research</span><span>·</span>
+            <span>EEG</span><span>·</span><span>ECG</span><span>·</span><span>EMG</span><span>·</span><span>Dry electrode</span><span>·</span><span>Wireless</span><span>·</span><span>HRV</span><span>·</span><span>Clinical-grade</span><span>·</span><span>KFDA</span><span>·</span><span>Research</span><span>·</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORY SHOWCASE -->
+      <section class="section" id="categories">
+        <div class="container">
+          <div class="section__head" data-reveal>
+            <div><p class="eyebrow">Browse</p><h2 class="h2">제품 카테고리</h2></div>
+            <a class="textlink" href="#catalog">전체 제품 <i>→</i></a>
+          </div>
+          <div class="showcase" data-showcase data-reveal>
+            <button class="showcase__preview" type="button" data-showcase-link>
+              <span class="showcase__chip" data-sig="EEG" data-showcase-chip><span class="dot"></span>EEG</span>
+              <img data-showcase-img src="assets/products/bm-m01p.jpg" alt="대표 제품 미리보기" />
+              <div class="showcase__wave" data-showcase-wave aria-hidden="true"></div>
+              <span class="showcase__cta" data-showcase-cta>해당 분야 보기 →</span>
+            </button>
+            <ol class="showcase__list">
+              <li class="showcase__row is-active" data-cat="EEG" data-sig="EEG" data-img="assets/products/bm-m01p.jpg" data-en="EEG" data-ko="뇌파 센서 · 전극" data-wave="eeg">
+                <button type="button"><span class="showcase__no">01</span><span class="showcase__label"><span class="en">EEG</span><span class="ko">뇌파 센서 · 전극</span></span><span class="showcase__count"><b data-cat-count="EEG">8</b> 제품</span><span class="showcase__arrow" aria-hidden="true">→</span></button>
+              </li>
+              <li class="showcase__row" data-cat="ECG" data-sig="ECG" data-img="assets/products/ubpulse-h3.jpg" data-en="ECG" data-ko="심전도 · 맥파 센서" data-wave="ecg">
+                <button type="button"><span class="showcase__no">02</span><span class="showcase__label"><span class="en">ECG</span><span class="ko">심전도 · 맥파 센서</span></span><span class="showcase__count"><b data-cat-count="ECG">6</b> 제품</span><span class="showcase__arrow" aria-hidden="true">→</span></button>
+              </li>
+              <li class="showcase__row" data-cat="EMG" data-sig="EMG" data-img="assets/products/m0202.jpg" data-en="EMG" data-ko="근전도 센서 · 전극" data-wave="emg">
+                <button type="button"><span class="showcase__no">03</span><span class="showcase__label"><span class="en">EMG</span><span class="ko">근전도 센서 · 전극</span></span><span class="showcase__count"><b data-cat-count="EMG">4</b> 제품</span><span class="showcase__arrow" aria-hidden="true">→</span></button>
+              </li>
+              <li class="showcase__row" data-cat="ACC" data-sig="ACC" data-img="assets/products/paste-ten20.jpg" data-en="PARTS" data-ko="소모품 · 부품" data-wave="acc">
+                <button type="button"><span class="showcase__no">04</span><span class="showcase__label"><span class="en">PARTS</span><span class="ko">소모품 · 부품</span></span><span class="showcase__count"><b data-cat-count="ACC">9</b> 제품</span><span class="showcase__arrow" aria-hidden="true">→</span></button>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATALOG -->
+      <section class="section section--soft" id="catalog">
+        <div class="container">
+          <div class="catalog-head" data-reveal>
+            <div><p class="eyebrow">Products</p><h2 class="h2"><span data-catalog-title>전체 제품</span> <em data-catalog-count>27개</em></h2></div>
+            <label class="catalog-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <input type="search" placeholder="제품명·모델·브랜드 검색" data-catalog-search aria-label="제품 검색" />
+            </label>
+          </div>
+          <div class="catalog-bar" data-reveal>
+            <div class="fgroup"><span class="fgroup__label">측정 분야</span>
+              <button type="button" class="fchip is-active" data-cat-chip="ALL">전체</button>
+              <button type="button" class="fchip" data-cat-chip="EEG">뇌파 EEG</button>
+              <button type="button" class="fchip" data-cat-chip="ECG">심전도·맥파 ECG</button>
+              <button type="button" class="fchip" data-cat-chip="EMG">근전도 EMG</button>
+              <button type="button" class="fchip" data-cat-chip="ACC">소모품·부품</button>
+            </div>
+            <div class="fgroup"><span class="fgroup__label">브랜드</span>
+              <button type="button" class="fchip is-active" data-brand-chip="ALL">전체</button>
+              <button type="button" class="fchip" data-brand-chip="neuroNicle">neuroNicle</button>
+              <button type="button" class="fchip" data-brand-chip="ubpulse">ubpulse</button>
+              <button type="button" class="fchip" data-brand-chip="iobid">iobid</button>
+            </div>
+            <label class="catalog-sort"><span class="sr-only">정렬</span>
+              <select data-catalog-sort aria-label="정렬"><option value="recommended">추천순</option><option value="low">낮은 가격순</option><option value="high">높은 가격순</option></select>
+            </label>
+          </div>
+          <div class="pgrid" data-catalog-grid></div>
+          <div class="catalog-empty" data-catalog-empty hidden>
+            <h3>검색 결과가 없습니다</h3><p>다른 검색어나 필터를 선택해 보세요.</p>
+            <button class="btn btn--ghost btn--sm" type="button" data-catalog-reset>전체 제품 보기</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA (dark) -->
+      <section class="cta-band" id="contact">
+        <div class="container" data-reveal>
+          <p class="eyebrow eyebrow--on-dark">Need a configuration?</p>
+          <h2>연구 환경에 맞춘 구성을 제안합니다</h2>
+          <p>측정 목적과 채널 수만 알려주시면 센서·전극·소프트웨어 구성을 견적으로 안내해 드립니다.</p>
+          <a class="btn btn--accent" data-magnetic href="mailto:general@laxtha.com">견적 문의하기</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="ftr">
+      <div class="container">
+        <div class="ftr__grid">
+          <div>
+            <img class="ftr__logo" src="assets/brand/laxtha-logo.png" alt="LAXTHA eShop" />
+            <p>(주)락싸 LAXTHA Inc.<br/>대전광역시 유성구 테크노2로 106<br/>대표전화 042-931-4590 · general@laxtha.com<br/>사업자등록번호 314-81-25684 · KCP 에스크로 결제</p>
+          </div>
+          <div><h4>제품</h4>
+            <a class="lnk" href="#catalog" data-jump-cat="EEG">뇌파 EEG</a>
+            <a class="lnk" href="#catalog" data-jump-cat="ECG">심전도·맥파 ECG</a>
+            <a class="lnk" href="#catalog" data-jump-cat="EMG">근전도 EMG</a>
+            <a class="lnk" href="#catalog" data-jump-cat="ACC">소모품·부품</a>
+          </div>
+          <div><h4>브랜드</h4>
+            <a class="lnk" href="#catalog" data-jump-brand="neuroNicle">neuroNicle</a>
+            <a class="lnk" href="#catalog" data-jump-brand="ubpulse">ubpulse</a>
+            <a class="lnk" href="#catalog" data-jump-brand="iobid">iobid</a>
+          </div>
+          <div><h4>고객센터</h4>
+            <a class="lnk" href="tel:0429314590">042-931-4590</a>
+            <a class="lnk" href="mailto:general@laxtha.com">general@laxtha.com</a>
+            <span class="lnk">평일 09:00 – 18:00</span>
+          </div>
+        </div>
+        <div class="ftr__btm"><span>이용약관 · 개인정보처리방침</span><span>© 2026 LAXTHA Inc. All rights reserved.</span></div>
+      </div>
+    </footer>
+
+    <!-- CART DRAWER -->
+    <div class="drawer" data-cart-drawer hidden>
+      <div class="drawer__overlay" data-drawer-close></div>
+      <aside class="drawer__panel" role="dialog" aria-label="장바구니" aria-modal="true">
+        <div class="drawer__head"><h2>장바구니</h2><button class="drawer__close" type="button" data-drawer-close aria-label="닫기">×</button></div>
+        <div class="drawer__body" data-cart-items></div>
+        <div class="drawer__empty" data-cart-empty>장바구니가 비어 있습니다.<br/><button class="btn btn--ghost btn--sm" type="button" data-drawer-close>제품 보러 가기</button></div>
+        <div class="drawer__foot" data-cart-foot hidden>
+          <div class="drawer__total"><span>상품 합계</span><strong data-cart-total>0원</strong></div>
+          <button class="btn btn--ink btn--block" type="button" data-checkout-open>주문 · 결제하기</button>
+        </div>
+      </aside>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div class="modal" data-checkout-modal hidden>
+      <div class="modal__overlay" data-modal-close></div>
+      <div class="modal__panel" role="dialog" aria-label="주문 결제" aria-modal="true">
+        <button class="modal__close" type="button" data-modal-close aria-label="닫기">×</button>
+        <div data-checkout-view>
+          <h2 class="modal__title">주문 · 결제</h2>
+          <div class="checkout-grid">
+            <form class="checkout-form" data-checkout-form novalidate>
+              <div class="field"><label for="c-name">이름</label><input id="c-name" name="name" required autocomplete="name" /></div>
+              <div class="field"><label for="c-tel">연락처</label><input id="c-tel" name="tel" required inputmode="tel" placeholder="010-0000-0000" /></div>
+              <div class="field"><label for="c-email">이메일</label><input id="c-email" name="email" type="email" required /></div>
+              <div class="field"><label for="c-addr">배송지</label><input id="c-addr" name="addr" required /></div>
+              <div class="field"><label for="c-memo">요청사항 <span class="opt">(선택)</span></label><input id="c-memo" name="memo" /></div>
+              <p class="pay-note">KCP 에스크로 안전 결제 · <b>테스트 모드</b>라 실제 청구가 발생하지 않습니다.</p>
+              <p class="form-alert" data-checkout-alert role="alert" hidden></p>
+              <button class="btn btn--ink btn--block" type="submit" data-pay-button>결제하기</button>
+            </form>
+            <aside class="checkout-summary">
+              <h3>주문 상품</h3>
+              <div class="summary-items" data-checkout-summary></div>
+              <div class="checkout-total"><span>결제 금액</span><strong data-checkout-total>0원</strong></div>
+            </aside>
+          </div>
+        </div>
+        <div class="checkout-done" data-checkout-done hidden>
+          <span class="success-badge">결제 완료</span>
+          <h2 class="modal__title">주문이 완료되었습니다</h2>
+          <dl class="info-list" data-done-info></dl>
+          <button class="btn btn--ink" type="button" data-modal-close>쇼핑 계속</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK VIEW MODAL -->
+    <div class="modal" data-quickview hidden>
+      <div class="modal__overlay" data-modal-close></div>
+      <div class="modal__panel modal__panel--qv" role="dialog" aria-label="제품 상세" aria-modal="true">
+        <button class="modal__close" type="button" data-modal-close aria-label="닫기">×</button>
+        <div data-quickview-body></div>
+      </div>
+    </div>
+
+    <!-- MOBILE SHEET -->
+    <div class="sheet" data-menu>
+      <div class="sheet__panel">
+        <button class="sheet__close" type="button" data-menu-close aria-label="닫기">×</button>
+        <a href="#categories">측정 분야</a>
+        <a href="#catalog">제품</a>
+        <a href="#contact">문의</a>
+        <p class="grp">분야</p>
+        <a href="#catalog" data-jump-cat="EEG">뇌파 EEG</a>
+        <a href="#catalog" data-jump-cat="ECG">심전도·맥파 ECG</a>
+        <a href="#catalog" data-jump-cat="EMG">근전도 EMG</a>
+        <a href="#catalog" data-jump-cat="ACC">소모품·부품</a>
+      </div>
+    </div>
+  </body>
+</html>

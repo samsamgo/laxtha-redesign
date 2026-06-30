@@ -1,0 +1,8 @@
+node_modules/
+data/orders.json
+.env
+*.log
+.codex_prompt*.txt
+.review_prompt.txt
+review_out.txt
+_archive/
