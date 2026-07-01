@@ -1,0 +1,13 @@
+{
+  "name": "LAXTHA eShop",
+  "short_name": "LAXTHA",
+  "description": "생체신호 계측 전문 — ECG·EEG·EMG 센서와 전극, 측정 소프트웨어",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0e1518",
+  "theme_color": "#0e1518",
+  "icons": [
+    { "src": "assets/brand/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "assets/brand/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
