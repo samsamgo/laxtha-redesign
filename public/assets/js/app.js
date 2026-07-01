@@ -11,11 +11,15 @@
   const state = { cat: 'ALL', brand: 'ALL', q: '', sort: 'recommended' };
 
   /* ---------------- catalog ---------------- */
-  function card(p) {
+  function card(p, i = 0) {
     const label = D().categoryLabel(p.cat);
+    const badges = (p.tags || []).length
+      ? `<div class="pcard__badges">${(p.tags || []).map((t) => `<span class="pcard__badge${t === '인기' ? ' is-hot' : ''}">${esc(t)}</span>`).join('')}</div>`
+      : '';
     return `
-      <article class="pcard" data-id="${esc(p.id)}" role="button" tabindex="0" aria-label="${esc(p.name)} 상세 보기">
+      <article class="pcard" data-id="${esc(p.id)}" role="button" tabindex="0" aria-label="${esc(p.name)} 상세 보기" style="--i:${i}">
         <div class="pcard__media">
+          ${badges}
           <img src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy" />
           <button class="pcard__add" type="button" data-add="${esc(p.id)}" aria-label="${esc(p.name)} 장바구니 담기">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
@@ -48,7 +52,7 @@
 
     $('[data-catalog-title]').textContent = catalogTitle();
     $('[data-catalog-count]').textContent = `${list.length}개`;
-    grid.innerHTML = list.map(card).join('');
+    grid.innerHTML = list.map((p, i) => card(p, i)).join('');
     $('[data-catalog-empty]').hidden = list.length > 0;
     $$('[data-cat-chip]').forEach((c) => c.classList.toggle('is-active', c.dataset.catChip === state.cat));
     $$('[data-brand-chip]').forEach((c) => c.classList.toggle('is-active', c.dataset.brandChip === state.brand));
