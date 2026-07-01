@@ -373,8 +373,7 @@ html { scrollbar-color: var(--line-2) transparent; }
 
 /* ---- Product card: spotlight media, float, sheen, badges ---- */
 .pcard__media {
-  background:
-    radial-gradient(120% 92% at 50% 18%, #ffffff 0%, #ffffff 58%, #eef2f6 100%);
+  background: #ffffff;   /* products carry a baked soft shadow — keep bg clean white */
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
   transition: transform 480ms var(--ease), box-shadow 480ms var(--ease), border-color 480ms var(--ease);
   will-change: transform;
@@ -432,7 +431,7 @@ html { scrollbar-color: var(--line-2) transparent; }
 
 /* ---- Hero: floating product + pulsing halo + glossier frame ---- */
 .hero__frame {
-  background: radial-gradient(130% 100% at 50% 16%, #ffffff 0%, #eef2f6 100%);
+  background: #ffffff;
   box-shadow: 0 40px 80px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.9);
 }
 .hero[data-hero].in .hero__frame img { animation: floaty 6.5s ease-in-out infinite; }
@@ -442,14 +441,14 @@ html { scrollbar-color: var(--line-2) transparent; }
 
 /* ---- Showcase preview: spotlight + lift ---- */
 .showcase__preview {
-  background: radial-gradient(120% 96% at 50% 16%, #ffffff 0%, #ffffff 56%, #eaeef2 100%);
+  background: #ffffff;
   transition: box-shadow 480ms var(--ease), transform 480ms var(--ease);
 }
 .showcase__preview img { padding: clamp(24px, 5%, 52px); }
 .showcase__preview:hover { transform: translateY(-4px); box-shadow: 0 26px 52px rgba(14,90,100,0.14); }
 
-/* ---- Quick view media: spotlight + product shadow ---- */
-.qv__media { background: radial-gradient(120% 100% at 50% 16%, #ffffff 0%, #eef2f6 100%); }
+/* ---- Quick view media ---- */
+.qv__media { background: #ffffff; }
 
 /* ---- Soft section subtle depth ---- */
 .section--soft { background: linear-gradient(180deg, var(--bg-soft) 0%, #eaeef2 100%); }

@@ -107,6 +107,68 @@ def remove_text_blobs(arr):
     return out
 
 
+def product_alpha(canvas_rgb):
+    """Solid product silhouette (255) vs border-connected white background (0)."""
+    g = np.asarray(canvas_rgb.convert("L"))
+    white = g >= 250
+    lbl, _ = ndimage.label(white)
+    border = np.unique(np.concatenate([lbl[0, :], lbl[-1, :], lbl[:, 0], lbl[:, -1]]))
+    border = border[border != 0]
+    bg = np.isin(lbl, border)
+    mask = ndimage.binary_fill_holes(~bg)     # solidify interior (no body holes)
+    return mask
+
+
+def ground_shadow(canvas_rgb):
+    """Bake a soft contact shadow so a white-cutout product looks grounded,
+    not pasted. Real scenes (skin/desk backgrounds) are left untouched."""
+    mask = product_alpha(canvas_rgb)
+    bg_frac = 1.0 - mask.mean()
+    if bg_frac < 0.30:                 # not a white-cutout -> leave real photo as-is
+        return canvas_rgb
+
+    # skip real scenes containing skin (hands/ears): their silhouette is a rough
+    # arm/hand shape and a baked shadow looks torn/unnatural.
+    a = np.asarray(canvas_rgb).astype(int)
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    skin = (r > 95) & (g > 40) & (b > 20) & (r > g) & (g > b) & ((r - b) > 15)
+    if mask.sum() and (skin & mask).sum() / mask.sum() > 0.12:
+        return canvas_rgb
+
+    S = canvas_rgb.size[0]
+    alpha = Image.fromarray((mask * 255).astype("uint8"))
+
+    # cleaned silhouette for the shadow: drop tiny specks + close gaps so the
+    # baked shadow reads as one soft pool, not torn fragments.
+    lbl, nn = ndimage.label(mask)
+    smask = mask
+    if nn > 1:
+        sizes = ndimage.sum(np.ones_like(lbl), lbl, index=np.arange(1, nn + 1))
+        keep_lbls = np.where(sizes >= 0.005 * mask.sum())[0] + 1
+        big = np.isin(lbl, keep_lbls)
+        if big.any():
+            smask = big
+    smask = ndimage.binary_closing(smask, iterations=max(1, int(S * 0.004)))
+    shadow_alpha = Image.fromarray((smask * 255).astype("uint8"))
+
+    # shadow: silhouette, softened, dropped slightly below, low opacity
+    blur = max(6, int(S * 0.018))
+    sh = np.asarray(shadow_alpha.filter(ImageFilter.GaussianBlur(blur))).astype(float)
+    sh = (sh * 0.26).astype("uint8")
+    shadow = Image.new("RGBA", (S, S), (18, 24, 30, 0))
+    shadow.putalpha(Image.fromarray(sh))
+    dx, dy = int(S * 0.006), int(S * 0.022)
+    off = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    off.paste(shadow, (dx, dy))
+
+    base = Image.new("RGBA", (S, S), (255, 255, 255, 255))
+    base.alpha_composite(off)
+    prod = canvas_rgb.convert("RGBA")
+    prod.putalpha(alpha)
+    base.alpha_composite(prod)
+    return base.convert("RGB")
+
+
 def content_crop(arr):
     gray = np.asarray(Image.fromarray(arr).convert("L"))
     ys, xs = np.where(gray < FG_THR)
@@ -118,10 +180,10 @@ def content_crop(arr):
 def process(path):
     im = to_rgb(Image.open(path))
     im = apply_pre_white(im, os.path.basename(path))
-    im = ImageOps.autocontrast(im, cutoff=0.4)
-    im = ImageEnhance.Brightness(im).enhance(1.03)
-    im = ImageEnhance.Contrast(im).enhance(1.06)
-    im = ImageEnhance.Color(im).enhance(1.10)
+    # Conservative tone: keep product colors faithful (preserve_tone + gentle levels,
+    # no saturation/contrast boost that would shift pale products like the pastes).
+    im = ImageOps.autocontrast(im, cutoff=0.2, preserve_tone=True)
+    im = ImageEnhance.Brightness(im).enhance(1.01)
 
     arr = np.asarray(im).copy()
     arr = snap_background(arr)
@@ -139,6 +201,7 @@ def process(path):
 
     canvas = Image.new("RGB", (OUT, OUT), (255, 255, 255))
     canvas.paste(obj, ((OUT - nw) // 2, (OUT - nh) // 2))
+    canvas = ground_shadow(canvas)      # soft contact shadow for white cutouts
     return canvas
 
 
