@@ -166,13 +166,33 @@
   function openQuickview(id) {
     const p = D().byId(id); if (!p) return;
     const label = D().categoryLabel(p.cat);
+    const hasText = (v) => String(v ?? '').trim().length > 0;
+    const features = Array.isArray(p.features) ? p.features.filter(hasText) : [];
+    const specs = Array.isArray(p.specs)
+      ? p.specs.filter((row) => Array.isArray(row) && hasText(row[0]) && hasText(row[1]))
+      : [];
+    const detailBlocks = [
+      hasText(p.desc)
+        ? `<section class="qv__block"><h3>제품 소개</h3><p class="qv__desc">${esc(p.desc)}</p></section>`
+        : '',
+      features.length
+        ? `<section class="qv__block"><h3>주요 특징</h3><ul class="qv__features">${features.map((item) => `<li>${esc(item)}</li>`).join('')}</ul></section>`
+        : '',
+      specs.length
+        ? `<section class="qv__block"><h3>제품 사양</h3><table class="qv__specs"><tbody>${specs.map((row) => `<tr><th>${esc(row[0])}</th><td>${esc(row[1])}</td></tr>`).join('')}</tbody></table></section>`
+        : '',
+      hasText(p.use)
+        ? `<section class="qv__block qv__use"><h3>추천 활용</h3><p>${esc(p.use)}</p></section>`
+        : ''
+    ].filter(Boolean).join('');
     $('[data-quickview-body]').innerHTML = `
       <div class="qv">
         <div class="qv__media"><img src="${esc(p.img)}" alt="${esc(p.name)}"></div>
-        <div>
+        <div class="qv__summary">
           <div class="qv__chips"><span class="chip" data-sig="${esc(p.cat)}"><span class="dot"></span>${esc(label)}</span><span class="tagpill">${esc(p.brand)}</span></div>
           <h2 class="qv__name">${esc(p.name)}</h2>
-          <p class="qv__spec">${esc(p.spec || '')}</p>
+          ${hasText(p.tagline) ? `<p class="qv__tagline">${esc(p.tagline)}</p>` : ''}
+          ${!hasText(p.desc) && hasText(p.spec) ? `<p class="qv__spec">${esc(p.spec)}</p>` : ''}
           <p class="qv__price">${won(p.price)}<span>원</span></p>
           <div class="qv__buy">
             <button class="btn btn--ink" type="button" data-qv-add="${esc(p.id)}">장바구니 담기</button>
@@ -180,7 +200,8 @@
           </div>
           <p class="pay-note">연구·교육기관 납품 견적은 고객센터(042-931-4590)로 문의해 주세요.</p>
         </div>
-      </div>`;
+      </div>
+      ${detailBlocks ? `<div class="qv__detail">${detailBlocks}</div>` : ''}`;
     openModal('[data-quickview]');
   }
 
