@@ -325,7 +325,8 @@ ul,ol { margin: 0; padding: 0; list-style: none; }
 .field label { font-size:13px; font-weight:600; color: var(--ink-2); }
 .field label .opt { color: var(--muted-2); font-weight:500; }
 .field input { height:48px; padding:0 14px; border:1px solid var(--line-2); border-radius: var(--r-md); background: var(--surface); font:inherit; font-size:15px; color: var(--ink); }
-.field input:focus { outline:0; border-color: var(--accent); box-shadow: var(--focus); }
+.field textarea { min-height:112px; padding:13px 14px; border:1px solid var(--line-2); border-radius: var(--r-md); background: var(--surface); font:inherit; font-size:15px; color: var(--ink); resize:vertical; }
+.field input:focus, .field textarea:focus { outline:0; border-color: var(--accent); box-shadow: var(--focus); }
 .pay-note { font-size:13px; color: var(--muted); margin:6px 0 14px; }
 .form-alert { margin:0 0 14px; padding:12px 16px; border-radius: var(--r-md); background: var(--sig-ecg-soft); color: var(--sig-ecg); font-size:14px; font-weight:600; }
 .checkout-summary { background: var(--bg-soft); border:1px solid var(--line); border-radius: var(--r-lg); padding:22px; align-self:start; }
@@ -340,7 +341,7 @@ ul,ol { margin: 0; padding: 0; list-style: none; }
 .checkout-total { display:flex; justify-content:space-between; align-items:center; margin-top:18px; padding-top:16px; border-top:1px solid var(--line); }
 .checkout-total strong { font-family: var(--font-num); font-size:20px; font-weight:800; color: var(--ink); }
 .success-badge { display:inline-block; font-size:12.5px; font-weight:700; color: var(--sig-eeg); background: var(--sig-eeg-soft); padding:6px 14px; border-radius: var(--r-pill); margin-bottom:16px; }
-.checkout-done { text-align:center; padding:20px 0; }
+.checkout-done, .inquiry-done { text-align:center; padding:20px 0; }
 .checkout-done .info-list { text-align:left; max-width:420px; margin:0 auto 26px; }
 .info-list { display:flex; flex-direction:column; }
 .info-row { display:flex; justify-content:space-between; gap:16px; padding:12px 0; border-bottom:1px solid var(--line); font-size:14px; }
@@ -353,13 +354,19 @@ ul,ol { margin: 0; padding: 0; list-style: none; }
 .qv__summary { min-width:0; padding-top:4px; }
 .qv__chips { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
 .qv__name { font-size:24px; font-weight:800; letter-spacing:-0.03em; color: var(--ink); line-height:1.2; }
+.qv__model { margin-top:7px; color: var(--muted); font-size:12.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; }
 .qv__tagline { margin-top:12px; color: var(--accent-ink); font-size:16px; font-weight:700; line-height:1.55; }
 .qv__spec { margin-top:10px; color: var(--ink-2); font-size:14px; }
 .qv__price { margin:22px 0; font-family: var(--font-num); font-size:28px; font-weight:800; color: var(--ink); }
 .qv__price span { font-size:15px; font-weight:500; color: var(--muted); margin-left:3px; }
 .qv__buy { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+.qv__buy .btn { flex:1 1 140px; min-width:0; }
 .qv__detail { margin-top:30px; padding-top:26px; border-top:1px solid var(--line); }
 .qv__block + .qv__block { margin-top:24px; }
+.qv__extra { margin-top:20px; padding:16px 0 0; border-top:1px solid var(--line); }
+.qv__extra span { display:block; margin-bottom:6px; color: var(--muted); font-size:12.5px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; }
+.qv__extra p { color: var(--ink-2); font-size:14px; line-height:1.65; }
+.qv__extra--cert p { color: var(--accent-ink); font-weight:700; }
 .qv__block h3 { margin-bottom:12px; color: var(--ink); font-size:14px; font-weight:800; letter-spacing:0; }
 .qv__desc { color: var(--ink-2); font-size:15px; line-height:1.75; }
 .qv__features { display:grid; gap:10px; color: var(--ink-2); font-size:15px; line-height:1.6; }
@@ -369,6 +376,7 @@ ul,ol { margin: 0; padding: 0; list-style: none; }
 .qv__specs th, .qv__specs td { padding:12px 0; border-bottom:1px solid var(--line); vertical-align:top; line-height:1.55; }
 .qv__specs th { width:120px; padding-right:18px; color: var(--muted); font-weight:700; text-align:left; }
 .qv__specs td { color: var(--ink-2); word-break:keep-all; overflow-wrap:anywhere; }
+.qv__specnote { margin-top:12px; color: var(--muted); font-size:12.5px; line-height:1.6; }
 .qv__use { padding:18px 20px; border-left:3px solid var(--accent); border-radius: var(--r-md); background: var(--bg-soft); }
 .qv__use h3 { margin-bottom:8px; color: var(--accent-ink); }
 .qv__use p { color: var(--ink-2); font-size:15px; line-height:1.65; }

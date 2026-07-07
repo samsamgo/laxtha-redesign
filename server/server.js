@@ -3,7 +3,7 @@ import express from 'express';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createOrder, findOrderByMerchantUid, getOrder, updateOrder } from './store.js';
+import { createInquiry, createOrder, findOrderByMerchantUid, getOrder, updateOrder } from './store.js';
 import { verifyPayment } from './payment.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -34,6 +34,10 @@ function normalizeQty(value) {
 function makeId(prefix) {
   const rand = Math.random().toString(36).slice(2, 8);
   return `${prefix}_${Date.now()}_${rand}`;
+}
+
+function cleanText(value) {
+  return String(value || '').trim();
 }
 
 function buildOrderItems(requestItems, products) {
@@ -112,6 +116,31 @@ app.post('/api/orders', async (req, res, next) => {
       amount: order.amount,
       items: order.items
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post('/api/inquiries', async (req, res, next) => {
+  try {
+    const inquiry = {
+      id: makeId('inq'),
+      name: cleanText(req.body.name),
+      org: cleanText(req.body.org),
+      tel: cleanText(req.body.tel),
+      email: cleanText(req.body.email),
+      product: cleanText(req.body.product),
+      message: cleanText(req.body.message),
+      createdAt: new Date().toISOString()
+    };
+
+    if (!inquiry.name || !inquiry.tel || !inquiry.email || !inquiry.message) {
+      res.status(400).json({ error: 'Missing required inquiry fields.' });
+      return;
+    }
+
+    await createInquiry(inquiry);
+    res.status(201).json({ ok: true, id: inquiry.id });
   } catch (error) {
     next(error);
   }

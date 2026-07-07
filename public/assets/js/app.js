@@ -173,16 +173,22 @@
       : [];
     const detailBlocks = [
       hasText(p.desc)
-        ? `<section class="qv__block"><h3>제품 소개</h3><p class="qv__desc">${esc(p.desc)}</p></section>`
+        ? `<section class="qv__block"><h3>\uC81C\uD488 \uC18C\uAC1C</h3><p class="qv__desc">${esc(p.desc)}</p></section>`
         : '',
       features.length
-        ? `<section class="qv__block"><h3>주요 특징</h3><ul class="qv__features">${features.map((item) => `<li>${esc(item)}</li>`).join('')}</ul></section>`
+        ? `<section class="qv__block"><h3>\uC8FC\uC694 \uD2B9\uC9D5</h3><ul class="qv__features">${features.map((item) => `<li>${esc(item)}</li>`).join('')}</ul></section>`
         : '',
       specs.length
-        ? `<section class="qv__block"><h3>제품 사양</h3><table class="qv__specs"><tbody>${specs.map((row) => `<tr><th>${esc(row[0])}</th><td>${esc(row[1])}</td></tr>`).join('')}</tbody></table></section>`
+        ? `<section class="qv__block"><h3>\uC81C\uD488 \uC0AC\uC591</h3><table class="qv__specs"><tbody>${specs.map((row) => `<tr><th>${esc(row[0])}</th><td>${esc(row[1])}</td></tr>`).join('')}</tbody></table>${hasText(p.specNote) ? `<p class="qv__specnote">${esc(p.specNote)}</p>` : ''}</section>`
+        : '',
+      hasText(p.contents)
+        ? `<section class="qv__extra"><span>\uAD6C\uC131\uD488</span><p>${esc(p.contents)}</p></section>`
+        : '',
+      hasText(p.cert)
+        ? `<section class="qv__extra qv__extra--cert"><span>\uC778\uC99D</span><p>${esc(p.cert)}</p></section>`
         : '',
       hasText(p.use)
-        ? `<section class="qv__block qv__use"><h3>추천 활용</h3><p>${esc(p.use)}</p></section>`
+        ? `<section class="qv__block qv__use"><h3>\uCD94\uCC9C \uC0AC\uC6A9</h3><p>${esc(p.use)}</p></section>`
         : ''
     ].filter(Boolean).join('');
     $('[data-quickview-body]').innerHTML = `
@@ -191,14 +197,16 @@
         <div class="qv__summary">
           <div class="qv__chips"><span class="chip" data-sig="${esc(p.cat)}"><span class="dot"></span>${esc(label)}</span><span class="tagpill">${esc(p.brand)}</span></div>
           <h2 class="qv__name">${esc(p.name)}</h2>
+          ${hasText(p.model) ? `<p class="qv__model">\uBAA8\uB378 ${esc(p.model)}</p>` : ''}
           ${hasText(p.tagline) ? `<p class="qv__tagline">${esc(p.tagline)}</p>` : ''}
           ${!hasText(p.desc) && hasText(p.spec) ? `<p class="qv__spec">${esc(p.spec)}</p>` : ''}
-          <p class="qv__price">${won(p.price)}<span>원</span></p>
+          <p class="qv__price">${won(p.price)}<span>\uC6D0</span></p>
           <div class="qv__buy">
-            <button class="btn btn--ink" type="button" data-qv-add="${esc(p.id)}">장바구니 담기</button>
-            <button class="btn btn--accent" type="button" data-qv-buy="${esc(p.id)}">바로 구매</button>
+            <button class="btn btn--ink" type="button" data-qv-add="${esc(p.id)}">\uC7A5\uBC14\uAD6C\uB2C8 \uB2F4\uAE30</button>
+            <button class="btn btn--accent" type="button" data-qv-buy="${esc(p.id)}">\uBC14\uB85C \uAD6C\uB9E4</button>
+            <button class="btn btn--ghost" type="button" data-qv-inquire="${esc(p.id)}">\uC81C\uD488 \uBB38\uC758</button>
           </div>
-          <p class="pay-note">연구·교육기관 납품 견적은 고객센터(042-931-4590)로 문의해 주세요.</p>
+          <p class="pay-note">\uC5F0\uAD6C\u00B7\uAD50\uC721\uAE30\uAD00 \uB0A9\uD488 \uACAC\uC801\uC740 \uACE0\uAC1D\uC13C\uD130(042-931-4590)\uB85C \uBB38\uC758\uD574 \uC8FC\uC138\uC694.</p>
         </div>
       </div>
       ${detailBlocks ? `<div class="qv__detail">${detailBlocks}</div>` : ''}`;
@@ -283,6 +291,77 @@
     });
   }
 
+  /* ---------------- inquiry ---------------- */
+  function inquiryPayload(form) {
+    const fd = new FormData(form);
+    return {
+      name: String(fd.get('name') || '').trim(),
+      org: String(fd.get('org') || '').trim(),
+      tel: String(fd.get('tel') || '').trim(),
+      email: String(fd.get('email') || '').trim(),
+      product: String(fd.get('product') || '').trim(),
+      message: String(fd.get('message') || '').trim()
+    };
+  }
+
+  function openInquiry(prefillId) {
+    const modal = $('[data-inquiry-modal]');
+    if (!modal) return;
+    const form = $('[data-inquiry-form]', modal);
+    const product = form?.elements?.product;
+    $('[data-inquiry-view]', modal).hidden = false;
+    $('[data-inquiry-done]', modal).hidden = true;
+    const alert = $('[data-inquiry-alert]', modal);
+    if (alert) alert.hidden = true;
+    if (form) form.reset();
+    if (product && prefillId) product.value = D().byId(prefillId)?.name || '';
+    openModal('[data-inquiry-modal]');
+  }
+
+  function inquiryMailto(data) {
+    const subject = `\uC81C\uD488 \uBB38\uC758: ${data.product || 'LAXTHA'}`;
+    const body = [
+      `\uC774\uB984: ${data.name}`,
+      `\uC18C\uC18D \uAE30\uAD00: ${data.org || '-'}`,
+      `\uC5F0\uB77D\uCC98: ${data.tel}`,
+      `\uC774\uBA54\uC77C: ${data.email}`,
+      `\uAD00\uC2EC \uC81C\uD488: ${data.product || '-'}`,
+      '',
+      data.message
+    ].join('\n');
+    return `mailto:general@laxtha.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  function showInquiryDone() {
+    $('[data-inquiry-view]').hidden = true;
+    $('[data-inquiry-done]').hidden = false;
+  }
+
+  function initInquiry() {
+    window.openInquiry = openInquiry;
+    $$('[data-inquiry-open]').forEach((b) => b.addEventListener('click', () => openInquiry()));
+    const form = $('[data-inquiry-form]');
+    const alert = $('[data-inquiry-alert]');
+    const btn = $('[data-inquiry-submit]');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (alert) alert.hidden = true;
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      const originalText = btn?.textContent || '';
+      if (btn) { btn.disabled = true; btn.textContent = '\uBCF4\uB0B4\uB294 \uC911...'; }
+      const payload = inquiryPayload(form);
+      try {
+        await postJson('/api/inquiries', payload);
+        showInquiryDone();
+      } catch (err) {
+        location.href = inquiryMailto(payload);
+        showInquiryDone();
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = originalText || '\uBB38\uC758 \uBCF4\uB0B4\uAE30'; }
+      }
+    });
+  }
+
   /* ---------------- global clicks (cards, add, jumps) ---------------- */
   function initGlobal() {
     document.addEventListener('click', (e) => {
@@ -290,6 +369,7 @@
       if (add) { window.LaxthaCart.add(add.dataset.add, 1); add.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.25)' }, { transform: 'scale(1)' }], { duration: 320, easing: 'cubic-bezier(.22,1,.36,1)' }); return; }
       const qvAdd = e.target.closest('[data-qv-add]'); if (qvAdd) { window.LaxthaCart.add(qvAdd.dataset.qvAdd, 1); closeModal($('[data-quickview]')); openDrawer(); return; }
       const qvBuy = e.target.closest('[data-qv-buy]'); if (qvBuy) { window.LaxthaCart.add(qvBuy.dataset.qvBuy, 1); closeModal($('[data-quickview]')); $('[data-checkout-open]')?.click(); return; }
+      const qvInquire = e.target.closest('[data-qv-inquire]'); if (qvInquire) { closeModal($('[data-quickview]')); setTimeout(() => openInquiry(qvInquire.dataset.qvInquire), 220); return; }
       const cardEl = e.target.closest('.pcard'); if (cardEl && !e.target.closest('[data-add]')) { openQuickview(cardEl.dataset.id); return; }
       const jc = e.target.closest('[data-jump-cat]'); if (jc) { state.cat = jc.dataset.jumpCat; state.brand = 'ALL'; renderCatalog(); closeSheet(); return; }
       const jb = e.target.closest('[data-jump-brand]'); if (jb) { state.brand = jb.dataset.jumpBrand; state.cat = 'ALL'; renderCatalog(); closeSheet(); return; }
@@ -326,7 +406,7 @@
 
   function init() {
     window.LaxthaCart?.updateBadges?.();
-    initCart(); initModals(); initCheckout(); initGlobal(); initSheet(); initMagnetic();
+    initCart(); initModals(); initCheckout(); initInquiry(); initGlobal(); initSheet(); initMagnetic();
     observe();
     const hero = $('[data-hero]'); if (hero) requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('in')));
     if (D()) D().loadProducts().then(() => { renderCatalog(); fillCounts(); initCatalogControls(); initShowcase(); });

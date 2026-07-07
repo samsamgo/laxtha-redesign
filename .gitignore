@@ -1,5 +1,6 @@
 node_modules/
 data/orders.json
+data/inquiries.json
 .env
 *.log
 .codex_prompt*.txt
